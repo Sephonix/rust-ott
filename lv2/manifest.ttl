@@ -1,0 +1,15 @@
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui: <http://lv2plug.in/ns/extensions/ui#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<https://sephonix.com/plugins/sps-ott> a lv2:Plugin ;
+    lv2:binary <sps_ott.so> ; rdfs:seeAlso <sps-ott.ttl> .
+<https://sephonix.com/plugins/sps-ott#ui> a ui:X11UI ;
+    ui:binary <sps_ott.so> ; rdfs:seeAlso <sps-ott.ttl> .
+<https://sephonix.com/plugins/sps-ott#factory> a pset:Preset ;
+    lv2:appliesTo <https://sephonix.com/plugins/sps-ott> ; rdfs:label "SPS OTT — Aggressive" ; rdfs:seeAlso <factory.ttl> .

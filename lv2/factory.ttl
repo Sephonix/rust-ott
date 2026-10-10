@@ -1,0 +1,50 @@
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui: <http://lv2plug.in/ns/extensions/ui#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<https://sephonix.com/plugins/sps-ott#factory> a pset:Preset ; lv2:appliesTo <https://sephonix.com/plugins/sps-ott> ;
+    rdfs:label "SPS OTT — Aggressive" ;
+    lv2:port
+    [ lv2:symbol "amount" ; pset:value 100 ],
+    [ lv2:symbol "output" ; pset:value 0 ],
+    [ lv2:symbol "mix" ; pset:value 100 ],
+    [ lv2:symbol "lo_x" ; pset:value 88.3 ],
+    [ lv2:symbol "hi_x" ; pset:value 2500 ],
+    [ lv2:symbol "detect" ; pset:value 0 ],
+    [ lv2:symbol "knee" ; pset:value 1 ],
+    [ lv2:symbol "bypass" ; pset:value 0 ],
+    [ lv2:symbol "l_atk" ; pset:value 47.8 ],
+    [ lv2:symbol "l_rel" ; pset:value 282 ],
+    [ lv2:symbol "l_dt" ; pset:value -33.8 ],
+    [ lv2:symbol "l_dr" ; pset:value 66.7 ],
+    [ lv2:symbol "l_ut" ; pset:value -40.8 ],
+    [ lv2:symbol "l_ur" ; pset:value 4.17 ],
+    [ lv2:symbol "l_in" ; pset:value 5.2 ],
+    [ lv2:symbol "l_out" ; pset:value 10.3 ],
+    [ lv2:symbol "l_mute" ; pset:value 0 ],
+    [ lv2:symbol "l_solo" ; pset:value 0 ],
+    [ lv2:symbol "m_atk" ; pset:value 22.4 ],
+    [ lv2:symbol "m_rel" ; pset:value 282 ],
+    [ lv2:symbol "m_dt" ; pset:value -30.3 ],
+    [ lv2:symbol "m_dr" ; pset:value 66.7 ],
+    [ lv2:symbol "m_ut" ; pset:value -41.8 ],
+    [ lv2:symbol "m_ur" ; pset:value 4.17 ],
+    [ lv2:symbol "m_in" ; pset:value 5.2 ],
+    [ lv2:symbol "m_out" ; pset:value 5.7 ],
+    [ lv2:symbol "m_mute" ; pset:value 0 ],
+    [ lv2:symbol "m_solo" ; pset:value 0 ],
+    [ lv2:symbol "h_atk" ; pset:value 13.5 ],
+    [ lv2:symbol "h_rel" ; pset:value 132 ],
+    [ lv2:symbol "h_dt" ; pset:value -35.5 ],
+    [ lv2:symbol "h_dr" ; pset:value 1000 ],
+    [ lv2:symbol "h_ut" ; pset:value -40.8 ],
+    [ lv2:symbol "h_ur" ; pset:value 4.17 ],
+    [ lv2:symbol "h_in" ; pset:value 5.2 ],
+    [ lv2:symbol "h_out" ; pset:value 10.3 ],
+    [ lv2:symbol "h_mute" ; pset:value 0 ],
+    [ lv2:symbol "h_solo" ; pset:value 0 ] .

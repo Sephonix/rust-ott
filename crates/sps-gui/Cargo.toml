@@ -1,0 +1,13 @@
+[package]
+name = "sps-gui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+sps-dsp.workspace = true
+nih_plug_egui.workspace = true
+
+[dev-dependencies]
+egui-baseview.workspace = true
+baseview.workspace = true

@@ -1,0 +1,17 @@
+[package]
+name = "sps-ott"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+sps-dsp.workspace = true
+sps-gui.workspace = true
+nih_plug.workspace = true
+nih_plug_egui.workspace = true
+
+[features]
+assert-process-allocs = ["nih_plug/assert_process_allocs"]
