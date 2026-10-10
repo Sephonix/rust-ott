@@ -153,6 +153,10 @@ def run_ui(lib, bundle, seconds, controls, symbols, meters, d, audio_handle, lef
     idle = C.cast(u.extension(b"http://lv2plug.in/ns/extensions/ui#idleInterface"), C.POINTER(IdleInterface)).contents.idle
     print(f"LV2 UI: embedded X11 widget {widget.value} in parent {window}", flush=True)
     try:
+        # A software OpenGL renderer can spend several seconds compiling its
+        # first frame. Wait for actual paint before starting input gestures;
+        # otherwise press/move/release can all arrive in one initial egui frame.
+        wait_for_paint(x, display, widget.value)
         for port, v in controls.items():
             u.port_event(handle, port, 4, 0, C.cast(C.pointer(v), P))
         if exercise:
@@ -185,6 +189,24 @@ def run_ui(lib, bundle, seconds, controls, symbols, meters, d, audio_handle, lef
         u.cleanup(handle)
         bind(x, "XDestroyWindow", C.c_int, P, C.c_ulong)(display, window)
         bind(x, "XCloseDisplay", C.c_int, P)(display)
+
+def wait_for_paint(xlib, display, window):
+    get_image = bind(xlib, "XGetImage", P, P, C.c_ulong, C.c_int, C.c_int, U, U, C.c_ulong, C.c_int)
+    get_pixel = bind(xlib, "XGetPixel", C.c_ulong, P, C.c_int, C.c_int)
+    destroy_image = bind(xlib, "XDestroyImage", C.c_int, P)
+    deadline = time.monotonic() + 15.0
+    # Read the solid lime SPS badge. Window creation alone does not imply that
+    # the first egui frame has rendered; a blank GL framebuffer is not ready.
+    while time.monotonic() < deadline:
+        image = get_image(display, window, 24, 32, 1, 1, C.c_ulong(-1).value, 2)
+        if image:
+            pixel = get_pixel(image, 0, 0) & 0xFFFFFF
+            destroy_image(image)
+            if pixel == 0xC5F169:
+                print("LV2 UI: first native frame painted", flush=True)
+                return
+        time.sleep(0.05)
+    raise AssertionError("Native editor did not paint within 15 seconds")
 
 class XPointerEvent(C.Structure):
     _fields_ = [("type", C.c_int), ("serial", C.c_ulong), ("send_event", C.c_int), ("display", P),
