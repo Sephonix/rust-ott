@@ -4,7 +4,7 @@ use super::{Feature, CONTROL_OFFSET, METER_OFFSET, URI};
 use baseview::{Size, WindowHandle, WindowOpenOptions, WindowScalePolicy};
 use egui_baseview::EguiWindow;
 use raw_window_handle::{HasRawWindowHandle, RawWindowHandle, XcbWindowHandle};
-use sps_dsp::{params::*, AtomicValue, MeterBus};
+use sps_ott_dsp::{params::*, AtomicValue, MeterBus};
 use std::ffi::{c_char, c_void, CStr};
 use std::ptr;
 use std::sync::{
@@ -117,16 +117,16 @@ unsafe extern "C" fn instantiate(
         &Parent(parent),
         WindowOpenOptions {
             title: "SPS OTT".to_owned(),
-            size: Size::new(sps_gui::WIDTH as f64, sps_gui::HEIGHT as f64),
+            size: Size::new(sps_ott_gui::WIDTH as f64, sps_ott_gui::HEIGHT as f64),
             scale: WindowScalePolicy::ScaleFactor(1.0),
             gl_config: Some(Default::default()),
         },
         Default::default(),
-        sps_gui::UiState::default(),
-        |ctx, _, _| sps_gui::configure(ctx),
+        sps_ott_gui::UiState::default(),
+        |ctx, _, _| sps_ott_gui::configure(ctx),
         move |ctx, _, state| {
             let values = std::array::from_fn(|i| gui_shared.values[i].load());
-            sps_gui::draw(
+            sps_ott_gui::draw(
                 ctx,
                 state,
                 &values,
@@ -152,8 +152,8 @@ unsafe extern "C" fn instantiate(
         if !resize.is_null() {
             ((*resize).resize)(
                 (*resize).handle,
-                sps_gui::WIDTH as i32,
-                sps_gui::HEIGHT as i32,
+                sps_ott_gui::WIDTH as i32,
+                sps_ott_gui::HEIGHT as i32,
             );
         }
     }

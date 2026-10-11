@@ -4,13 +4,53 @@ The Cargo workspace separates audio processing from plugin APIs and graphics.
 
 | Crate | Responsibility |
 | --- | --- |
-| `sps-dsp` | Dependency-free DSP, parameter schema, factory values and atomic meters. |
-| `sps-gui` | Shared native egui editor and generated-activity preview. |
-| `sps-ott` | NIH-plug CLAP/VST3 export, automation and project state. |
-| `sps-ott-lv2` | LV2 core and Linux X11 UI ABI, using the same DSP/editor. |
+| `sps-dsp` (`crates/sps-dsp`) | Dependency-free crossovers, gain conversions, parameter mapping and atomic floats. |
+| `sps-ott-dsp` (`plugins/sps-ott/dsp`) | OTT engine, parameter table, factory tuning, dynamics curve and meter layout. |
+| `sps-ott-gui` (`plugins/sps-ott/gui`) | OTT native egui editor and generated-activity preview, shared by OTT formats. |
+| `sps-ott` (`plugins/sps-ott/plugin`) | NIH-plug CLAP/VST3 export, automation and project state. |
+| `sps-ott-lv2` (`plugins/sps-ott/lv2`) | LV2 core and Linux X11 UI ABI, using the same DSP/editor. |
 | `xtask` | Build, bundle, install and LV2 metadata/preset generation. |
 
-## Signal path
+## Reuse and adding plugins
+
+All OTT implementation source lives under `plugins/sps-ott`; names of
+implementation crates use the `sps-ott-` prefix. The exported CLAP/VST3 package
+is simply `sps-ott`. Shared `sps-dsp` never depends on a plugin, GUI, or host API.
+Each plugin's format adapters use its own format-independent DSP engine and
+editor; the GUI does not run on the audio thread.
+
+The shared crate exposes:
+
+- `filter::Crossover`: phase-matched stereo three-band LR4 splitting, with
+  independent channel history, f64 recursive state, reset and reconfiguration.
+  Callers enforce finite `0 < low < high < sample_rate / 2` and channel 0 or 1.
+  Recombination rotates phase; dry/wet effects should use the summed bands as
+  their dry reference when they need phase alignment.
+- `db_to_gain` / `gain_to_db`: amplitude conversions with a −120 dB meter floor.
+- `params::Spec`: finite-value sanitization and linear/logarithmic mapping.
+  Plugins provide IDs, ranges and defaults; logarithmic ranges must be positive.
+- `AtomicValue`: relaxed atomic f32 mailboxes. Multiple values do not form a
+  synchronized snapshot and cannot publish ownership or signal readiness.
+
+These support other multiband effects, gain stages, parameter-driven processors,
+and audio/UI telemetry. The OTT-specific upward noise fade, +36 dB cap,
+38-control schema, 11-meter layout, and three-band editor are kept local.
+Host ABI/lifecycle code is a reference for a new adapter; keep raw pointers and
+unsafe host contracts inside format crates. Extract shared GUI widgets or host
+helpers when another plugin has a concrete matching need.
+
+For a new `sps-<name>` plugin, create DSP/editor/format packages under
+`plugins/sps-<name>`, add them to the workspace and workspace dependencies,
+and give the exported package a `bundler.toml` entry. Allocate new CLAP/VST3/LV2
+identities. Register the plugin in `xtask/src/main.rs::PLUGINS`, with its LV2
+metadata generator in a separate xtask module and checked-in metadata under
+the plugin directory. The current registry handles CLAP, VST3, and Linux LV2;
+adjust it explicitly for plugins with different format requirements.
+Set `[package.metadata.sps].bundles` on the exported package for
+`python3 scripts/package.py sps-<name>` and add the plugin manual, behavior
+tests, runtime smoke test, and CI validation/artifact entry.
+
+## SPS OTT signal path
 
 ```text
 input ── LR4 Low/Mid split ─┬─ low ─ high-split allpass ─ low dynamics ─┐
@@ -62,7 +102,7 @@ use an allocation-counting allocator to check automation processing.
 
 ## Parameter and state compatibility
 
-`crates/sps-dsp/src/params.rs` is the source of truth for the 38 controls and
+`plugins/sps-ott/dsp/src/params.rs` is the source of truth for the 38 controls and
 supplied defaults. NIH-plug uses stable string IDs; LV2 uses the same IDs as
 symbols, and fixed port indices. Do not reorder/change published IDs or LV2
 indices. Audio ports 0–3 are stereo input/output; controls 4–41 follow; optional

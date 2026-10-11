@@ -2,7 +2,7 @@
 use std::f64::consts::{PI, SQRT_2};
 
 #[derive(Clone, Copy)]
-pub struct Coefficients {
+struct Coefficients {
     b0: f64,
     b1: f64,
     b2: f64,
@@ -66,6 +66,12 @@ struct Channel {
     align: Biquad,
 }
 
+/// Stereo three-band LR4 crossover with phase-matched recombination.
+///
+/// `rate` must be finite and positive, with `0 < low < high < rate / 2`.
+/// Callers constrain automated frequencies to that range before configuring.
+/// `split` accepts channel indices 0 and 1; each channel has independent state.
+/// The sum has unity magnitude and rotated phase, so use it for a matched dry path.
 pub struct Crossover {
     channels: [Channel; 2],
     low_lp: Coefficients,

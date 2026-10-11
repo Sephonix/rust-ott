@@ -1800,23 +1800,30 @@ name = "sps-dsp"
 version = "0.1.0"
 
 [[package]]
-name = "sps-gui"
-version = "0.1.0"
-dependencies = [
- "baseview",
- "egui-baseview",
- "nih_plug_egui",
- "sps-dsp",
-]
-
-[[package]]
 name = "sps-ott"
 version = "0.1.0"
 dependencies = [
  "nih_plug",
  "nih_plug_egui",
+ "sps-ott-dsp",
+ "sps-ott-gui",
+]
+
+[[package]]
+name = "sps-ott-dsp"
+version = "0.1.0"
+dependencies = [
  "sps-dsp",
- "sps-gui",
+]
+
+[[package]]
+name = "sps-ott-gui"
+version = "0.1.0"
+dependencies = [
+ "baseview",
+ "egui-baseview",
+ "nih_plug_egui",
+ "sps-ott-dsp",
 ]
 
 [[package]]
@@ -1826,8 +1833,8 @@ dependencies = [
  "baseview",
  "egui-baseview",
  "raw-window-handle 0.5.2",
- "sps-dsp",
- "sps-gui",
+ "sps-ott-dsp",
+ "sps-ott-gui",
 ]
 
 [[package]]
@@ -2540,7 +2547,7 @@ name = "xtask"
 version = "0.1.0"
 dependencies = [
  "nih_plug_xtask",
- "sps-dsp",
+ "sps-ott-dsp",
 ]
 
 [[package]]

@@ -1,17 +1,30 @@
 [workspace]
 resolver = "2"
-members = ["crates/sps-dsp", "crates/sps-gui", "crates/sps-plugin", "crates/sps-lv2", "xtask"]
-default-members = ["crates/sps-dsp", "crates/sps-plugin", "crates/sps-lv2"]
+members = [
+    "crates/sps-dsp",
+    "plugins/sps-ott/dsp",
+    "plugins/sps-ott/gui",
+    "plugins/sps-ott/plugin",
+    "plugins/sps-ott/lv2",
+    "xtask",
+]
+default-members = [
+    "crates/sps-dsp",
+    "plugins/sps-ott/dsp",
+    "plugins/sps-ott/plugin",
+    "plugins/sps-ott/lv2",
+]
 
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
 license = "GPL-3.0-or-later"
-repository = "https://github.com/Sephonix/rust-ott"
+repository = "https://github.com/Sephonix/sps-dsp"
 
 [workspace.dependencies]
 sps-dsp = { path = "crates/sps-dsp" }
-sps-gui = { path = "crates/sps-gui" }
+sps-ott-dsp = { path = "plugins/sps-ott/dsp" }
+sps-ott-gui = { path = "plugins/sps-ott/gui" }
 nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git", rev = "de421011f41a6d10fc8c7a6084e4f4dee0143683" }
 nih_plug_egui = { git = "https://github.com/robbert-vdh/nih-plug.git", rev = "de421011f41a6d10fc8c7a6084e4f4dee0143683" }
 baseview = { git = "https://github.com/RustAudio/baseview.git", rev = "9a0b42c09d712777b2edb4c5e0cb6baf21e988f0", features = ["opengl"] }

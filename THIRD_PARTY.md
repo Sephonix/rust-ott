@@ -1,6 +1,6 @@
 # Third-party code
 
-The root LICENSE covers original SPS OTT code under GPL-3.0-or-later.
+The root LICENSE covers original Sephonix Plugin Suite code under GPL-3.0-or-later.
 Third-party components keep their own licenses and copyright notices.
 
 | Component | Source / license |

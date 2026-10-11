@@ -1,6 +1,6 @@
-//! A shared, native egui editor: no webview, FFT, or audio-thread drawing.
+//! SPS OTT native egui editor, shared across its plugin formats.
 use nih_plug_egui::egui::*;
-use sps_dsp::{params::*, METER_COUNT};
+use sps_ott_dsp::{params::*, METER_COUNT};
 use std::f32::consts::PI;
 
 pub const WIDTH: u32 = 900;

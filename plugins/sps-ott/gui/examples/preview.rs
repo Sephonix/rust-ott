@@ -1,9 +1,9 @@
 //! Native GUI preview with generated meter activity. No audio device required.
 use baseview::{Size, WindowOpenOptions, WindowScalePolicy};
 use egui_baseview::EguiWindow;
-use sps_dsp::{params::*, Engine};
+use sps_ott_dsp::{params::*, Engine};
 struct Preview {
-    ui: sps_gui::UiState,
+    ui: sps_ott_gui::UiState,
     values: [f32; PARAM_COUNT],
     engine: Engine,
     frame: usize,
@@ -12,7 +12,7 @@ fn main() {
     EguiWindow::open_blocking(
         WindowOpenOptions {
             title: "SPS OTT — GUI Preview".into(),
-            size: Size::new(sps_gui::WIDTH as f64, sps_gui::HEIGHT as f64),
+            size: Size::new(sps_ott_gui::WIDTH as f64, sps_ott_gui::HEIGHT as f64),
             scale: WindowScalePolicy::ScaleFactor(1.0),
             gl_config: Some(Default::default()),
         },
@@ -23,7 +23,7 @@ fn main() {
             engine: Engine::new(48000.0),
             frame: 0,
         },
-        |ctx, _, _| sps_gui::configure(ctx),
+        |ctx, _, _| sps_ott_gui::configure(ctx),
         |ctx, _, state| {
             state.engine.set_parameters(&state.values);
             for _ in 0..1600 {
@@ -37,7 +37,7 @@ fn main() {
                 state.frame += 1;
             }
             let values = state.values;
-            sps_gui::draw(
+            sps_ott_gui::draw(
                 ctx,
                 &mut state.ui,
                 &values,

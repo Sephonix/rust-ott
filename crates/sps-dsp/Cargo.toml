@@ -3,7 +3,5 @@ name = "sps-dsp"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-
-[[bench]]
-name = "throughput"
-harness = false
+repository.workspace = true
+description = "Reusable DSP building blocks for the Sephonix Plugin Suite"

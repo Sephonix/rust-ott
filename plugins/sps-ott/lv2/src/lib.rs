@@ -1,6 +1,6 @@
 //! Minimal LV2 core ABI. The host owns port buffers; the instance owns the DSP.
 #![deny(unsafe_op_in_unsafe_fn)]
-use sps_dsp::{params::*, Engine, METER_COUNT};
+use sps_ott_dsp::{params::*, Engine, METER_COUNT};
 use std::ffi::{c_char, c_void};
 use std::ptr;
 

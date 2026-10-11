@@ -1,4 +1,4 @@
-use sps_dsp::{params::*, Engine};
+use sps_ott_dsp::{params::*, Engine};
 use std::{hint::black_box, time::Instant};
 fn main() {
     let frames = 48000 * 20;

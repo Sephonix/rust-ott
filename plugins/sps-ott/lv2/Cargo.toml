@@ -3,15 +3,16 @@ name = "sps-ott-lv2"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
 
 [lib]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-sps-dsp.workspace = true
+sps-ott-dsp.workspace = true
 
 [target.'cfg(target_os = "linux")'.dependencies]
-sps-gui.workspace = true
+sps-ott-gui.workspace = true
 baseview.workspace = true
 egui-baseview.workspace = true
 raw-window-handle.workspace = true

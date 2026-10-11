@@ -1,11 +1,12 @@
 [package]
-name = "sps-gui"
+name = "sps-ott-gui"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
 
 [dependencies]
-sps-dsp.workspace = true
+sps-ott-dsp.workspace = true
 nih_plug_egui.workspace = true
 
 [dev-dependencies]

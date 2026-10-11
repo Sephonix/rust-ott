@@ -1,0 +1,14 @@
+[package]
+name = "sps-ott-dsp"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Format-independent SPS OTT multiband compressor engine"
+
+[dependencies]
+sps-dsp.workspace = true
+
+[[bench]]
+name = "throughput"
+harness = false

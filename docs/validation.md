@@ -1,27 +1,33 @@
 # Validation
 
 Validated locally on Linux x86-64 (Arch Linux, KDE Wayland with XWayland),
-Rust 1.99.0, 2026-10-10. These checks use the built plugin binaries; no audio
-hardware or live audio server is required.
+Rust 1.99.0, 2026-10-11, after the suite workspace reorganization. These checks
+use the rebuilt plugin binaries; no audio hardware or live audio server is
+required.
 
 | Check | Result |
 | --- | --- |
 | `cargo fmt --all --check` | Passed |
 | `cargo clippy --workspace --all-targets --locked -- -D warnings` | Passed |
-| `cargo test --workspace --locked` | 13 DSP tests + 1 LV2 lifecycle test passed |
+| `cargo test --workspace --locked` | 4 shared primitive tests + 13 OTT DSP tests + 1 LV2 lifecycle test passed |
 | `cargo xtask bundle --release --locked` | CLAP, VST3 and LV2 Linux bundles produced |
 | CLAP validator release 0.4.1 (`152b982` build) | 34 passed, 0 failed, 0 warnings; 10 not-applicable tests skipped |
-| Steinberg VST3 SDK 3.8.1 validator | 47 passed, 0 failed |
+| Steinberg VST3 SDK 3.8.1 (`v3.8.1_build_84`) validator | 47 passed, 0 failed |
 | `lv2_validate target/bundled/sps-ott.lv2/*.ttl` | 0 errors |
-| `python3 scripts/smoke_lv2.py` | Lilv discovery, port metadata, exact bypass, processing, anti-phase stereo, meters and zero-frame run passed |
-| `python3 scripts/smoke_lv2.py --ui --exercise-ui --seconds 8` | Native embedded editor, idle loop, meter events, Amount drag, factory reset and cleanup passed; host received both edits |
+| `python3 plugins/sps-ott/scripts/smoke_lv2.py` | Lilv discovery, port metadata, exact bypass, processing, anti-phase stereo, meters and zero-frame run passed |
+| `python3 plugins/sps-ott/scripts/smoke_lv2.py --ui --exercise-ui --seconds 3` | Native embedded editor, idle loop, meter events, Amount drag, factory reset and cleanup passed; host received both edits |
+| LV2 metadata regeneration | Byte-identical on regeneration and matches bundled metadata |
+| `python3 scripts/package.py sps-ott` | All formats, manual links, source metadata and dependency/workspace license notices verified |
+| Repository skills | All three passed skill-creator structural validation |
 
 The CLAP skipped tests concern note/MIDI, voice information and other extensions
 this audio effect does not advertise. VST3 processes f32 audio; the validator
 reports f64 processing as unsupported. No claim of compatibility with every DAW
-or with Windows/macOS is made yet. The shared GUI was visually inspected in its
-native preview and as an embedded LV2 X11 child. A backend repaint scheduling
-issue was fixed so history and meters update without mouse activity.
+or with Windows/macOS is made yet. The OTT GUI was visually inspected in its
+native preview and as an embedded LV2 X11 child on 2026-10-10. The embedded editor
+and host edits were rechecked after restructuring on 2026-10-11. A previously
+fixed backend repaint issue allows history and meters to update without mouse
+activity.
 
 The DSP tests check exact factory defaults, hard/soft transfer curves,
 infinite ratios, flat crossover recombination (within 0.025 dB across tested
@@ -32,8 +38,9 @@ mute/solo, detection modes, and zero process-time heap allocations.
 
 ## CPU measurement
 
-Run `cargo bench -p sps-dsp --bench throughput`. On an Intel Core Ultra 9 185H,
-release builds measured approximately **135–141 ns per stereo frame**:
+Run `cargo bench -p sps-ott-dsp --bench throughput`. On an Intel Core Ultra 9 185H,
+the pre-reorganization release builds (2026-10-10) measured approximately
+**135–141 ns per stereo frame**:
 
 | Sample rate | Static preset | Continuously automated Amount and crossover |
 | --- | ---: | ---: |
@@ -74,7 +81,7 @@ LV2 RDF validation uses the upstream `lv2_validate` script and `sord_validate`
 Xvfb with Mesa software OpenGL:
 
 ```sh
-xvfb-run -a python3 scripts/smoke_lv2.py --ui --exercise-ui --seconds 3
+xvfb-run -a python3 plugins/sps-ott/scripts/smoke_lv2.py --ui --exercise-ui --seconds 3
 ```
 
 The GitHub workflow runs Rust checks, all format builds, CLAP validation, LV2

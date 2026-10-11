@@ -10,7 +10,7 @@
 <https://sephonix.com/plugins/sps-ott> a lv2:Plugin, lv2:CompressorPlugin, doap:Project ;
     doap:name "SPS OTT" ;
     doap:license <https://www.gnu.org/licenses/gpl-3.0.html> ;
-    doap:maintainer [ foaf:name "Sephonix" ; foaf:homepage <https://github.com/Sephonix/rust-ott> ] ;
+    doap:maintainer [ foaf:name "Sephonix" ; foaf:homepage <https://github.com/Sephonix/sps-dsp> ] ;
     lv2:minorVersion 0 ; lv2:microVersion 1 ;
     lv2:optionalFeature lv2:hardRTCapable ;
     ui:ui <https://sephonix.com/plugins/sps-ott#ui> ;

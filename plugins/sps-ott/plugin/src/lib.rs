@@ -1,9 +1,9 @@
 // The pinned upstream VST3 bindings emit a deprecated expression semicolon.
 #![allow(semicolon_in_expressions_from_non_local_macros)]
-//! CLAP and VST3 wrappers. All audio work lives in sps-dsp.
+//! CLAP and VST3 wrappers. All audio work lives in sps-ott-dsp.
 use nih_plug::prelude::*;
 use nih_plug_egui::{create_egui_editor, EguiState};
-use sps_dsp::{params::*, Engine, MeterBus};
+use sps_ott_dsp::{params::*, Engine, MeterBus};
 use std::sync::Arc;
 
 pub struct OttParams {
@@ -95,7 +95,7 @@ impl Default for OttParams {
                     param
                 }
             }),
-            editor_state: EguiState::from_size(sps_gui::WIDTH, sps_gui::HEIGHT),
+            editor_state: EguiState::from_size(sps_ott_gui::WIDTH, sps_ott_gui::HEIGHT),
             bypass: BoolParam::new("Bypass", false).make_bypass(),
         }
     }
@@ -157,7 +157,7 @@ impl Default for Ott {
 impl Plugin for Ott {
     const NAME: &'static str = "SPS OTT";
     const VENDOR: &'static str = "Sephonix";
-    const URL: &'static str = "https://github.com/Sephonix/rust-ott";
+    const URL: &'static str = "https://github.com/Sephonix/sps-dsp";
     const EMAIL: &'static str = "";
     const VERSION: &'static str = env!("CARGO_PKG_VERSION");
     const AUDIO_IO_LAYOUTS: &'static [AudioIOLayout] = &[
@@ -183,11 +183,11 @@ impl Plugin for Ott {
         let meters = self.meters.clone();
         create_egui_editor(
             params.editor_state.clone(),
-            sps_gui::UiState::default(),
-            |ctx, _| sps_gui::configure(ctx),
+            sps_ott_gui::UiState::default(),
+            |ctx, _| sps_ott_gui::configure(ctx),
             move |ctx, setter, state| {
                 let values = params.snapshot();
-                sps_gui::draw(ctx, state, &values, &meters.snapshot(), |i, value| {
+                sps_ott_gui::draw(ctx, state, &values, &meters.snapshot(), |i, value| {
                     if i == BYPASS {
                         setter.begin_set_parameter(&params.bypass);
                         setter.set_parameter(&params.bypass, value >= 0.5);

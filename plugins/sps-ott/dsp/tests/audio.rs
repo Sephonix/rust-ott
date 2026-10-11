@@ -1,4 +1,4 @@
-use sps_dsp::{compression_gain, db_to_gain, gain_to_db, params::*, Engine};
+use sps_ott_dsp::{compression_gain, db_to_gain, gain_to_db, params::*, Engine};
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::cell::Cell;
 
