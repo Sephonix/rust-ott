@@ -6,6 +6,21 @@ members = [
     "plugins/sps-ott/gui",
     "plugins/sps-ott/plugin",
     "plugins/sps-ott/lv2",
+    "crates/sps-presets",
+    "crates/sps-lv2",
+    "crates/sps-gui",
+    "plugins/sps-room/dsp",
+    "plugins/sps-room/gui",
+    "plugins/sps-room/plugin",
+    "plugins/sps-room/lv2",
+    "plugins/sps-delay/dsp",
+    "plugins/sps-delay/gui",
+    "plugins/sps-delay/plugin",
+    "plugins/sps-delay/lv2",
+    "plugins/sps-echo/dsp",
+    "plugins/sps-echo/gui",
+    "plugins/sps-echo/plugin",
+    "plugins/sps-echo/lv2",
     "xtask",
 ]
 default-members = [
@@ -22,7 +37,17 @@ license = "GPL-3.0-or-later"
 repository = "https://github.com/Sephonix/sps-dsp"
 
 [workspace.dependencies]
+sps-lv2 = { path = "crates/sps-lv2" }
 sps-dsp = { path = "crates/sps-dsp" }
+sps-presets = { path = "crates/sps-presets" }
+sps-gui = { path = "crates/sps-gui" }
+sps-room-dsp = { path = "plugins/sps-room/dsp" }
+sps-room-gui = { path = "plugins/sps-room/gui" }
+sps-delay-dsp = { path = "plugins/sps-delay/dsp" }
+sps-delay-gui = { path = "plugins/sps-delay/gui" }
+sps-echo-dsp = { path = "plugins/sps-echo/dsp" }
+sps-echo-gui = { path = "plugins/sps-echo/gui" }
+
 sps-ott-dsp = { path = "plugins/sps-ott/dsp" }
 sps-ott-gui = { path = "plugins/sps-ott/gui" }
 nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git", rev = "de421011f41a6d10fc8c7a6084e4f4dee0143683" }

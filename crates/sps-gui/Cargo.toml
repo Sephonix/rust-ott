@@ -1,0 +1,10 @@
+[package]
+name = "sps-gui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+[dependencies]
+sps-dsp.workspace = true
+sps-presets.workspace = true
+nih_plug_egui.workspace = true

@@ -1,0 +1,18 @@
+[package]
+name = "sps-room-lv2"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+sps-room-dsp.workspace = true
+
+[target.'cfg(target_os = "linux")'.dependencies]
+sps-room-gui.workspace = true
+baseview.workspace = true
+egui-baseview.workspace = true
+raw-window-handle.workspace = true

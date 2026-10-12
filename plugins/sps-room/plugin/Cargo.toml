@@ -1,0 +1,21 @@
+[package]
+name = "sps-room"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+sps-room-dsp.workspace = true
+sps-room-gui.workspace = true
+nih_plug.workspace = true
+nih_plug_egui.workspace = true
+
+[features]
+assert-process-allocs = ["nih_plug/assert_process_allocs"]
+
+[package.metadata.sps]
+bundles = ["SPS Room.clap", "SPS Room.vst3", "sps-room.lv2"]

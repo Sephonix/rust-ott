@@ -11,6 +11,7 @@ Third-party components keep their own licenses and copyright notices.
 | egui / egui_glow | [emilk/egui](https://github.com/emilk/egui); MIT or Apache-2.0. |
 | egui-baseview | [BillyDM/egui-baseview](https://github.com/BillyDM/egui-baseview), revision `ec70c3fe6b2f070dcacbc22924431edbe24bd1c0`; MIT. |
 | baseview | [RustAudio/baseview](https://github.com/RustAudio/baseview), revision `9a0b42c09d712777b2edb4c5e0cb6baf21e988f0`; MIT or Apache-2.0. |
+| serde / serde_json | [serde-rs](https://github.com/serde-rs); MIT or Apache-2.0. Used for UI-thread preset files; existing locked dependencies. |
 | clap-sys | [micahrj/clap-sys](https://github.com/micahrj/clap-sys), revision `25d7f53fdb6363ad63fbd80049cb7a42a97ac156`; MIT/Apache-2.0. |
 
 The complete transitive dependency set and exact resolved versions are in

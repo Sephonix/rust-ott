@@ -1,0 +1,26 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix time: <http://lv2plug.in/ns/ext/time#> .
+@prefix urid: <http://lv2plug.in/ns/ext/urid#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui: <http://lv2plug.in/ns/extensions/ui#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<https://sephonix.com/plugins/sps-echo#factory> a pset:Preset ; lv2:appliesTo <https://sephonix.com/plugins/sps-echo> ;
+    rdfs:label "SPS Echo — Default" ;
+    lv2:port
+    [ lv2:symbol "mix" ; pset:value 35 ],
+    [ lv2:symbol "output" ; pset:value 0 ],
+    [ lv2:symbol "bypass" ; pset:value 0 ],
+    [ lv2:symbol "time" ; pset:value 250 ],
+    [ lv2:symbol "sync" ; pset:value 0 ],
+    [ lv2:symbol "division" ; pset:value 4 ],
+    [ lv2:symbol "shift" ; pset:value 0 ],
+    [ lv2:symbol "feedback" ; pset:value 40 ],
+    [ lv2:symbol "low_cut" ; pset:value 20 ],
+    [ lv2:symbol "high_cut" ; pset:value 12000 ],
+    [ lv2:symbol "stereo" ; pset:value 1 ] .

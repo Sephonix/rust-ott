@@ -1,0 +1,19 @@
+[package]
+name = "sps-delay-lv2"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+sps-lv2.workspace = true
+sps-delay-dsp.workspace = true
+
+[target.'cfg(target_os = "linux")'.dependencies]
+sps-delay-gui.workspace = true
+baseview.workspace = true
+egui-baseview.workspace = true
+raw-window-handle.workspace = true

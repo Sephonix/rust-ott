@@ -1,0 +1,15 @@
+[package]
+name = "sps-room-gui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+sps-room-dsp.workspace = true
+sps-gui.workspace = true
+nih_plug_egui.workspace = true
+
+[dev-dependencies]
+egui-baseview.workspace = true
+baseview.workspace = true

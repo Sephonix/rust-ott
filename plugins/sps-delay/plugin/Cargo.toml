@@ -1,0 +1,21 @@
+[package]
+name = "sps-delay"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+sps-delay-dsp.workspace = true
+sps-delay-gui.workspace = true
+nih_plug.workspace = true
+nih_plug_egui.workspace = true
+
+[features]
+assert-process-allocs = ["nih_plug/assert_process_allocs"]
+
+[package.metadata.sps]
+bundles = ["SPS Delay.clap", "SPS Delay.vst3", "sps-delay.lv2"]

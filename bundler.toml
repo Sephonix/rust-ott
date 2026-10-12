@@ -1,2 +1,11 @@
 [sps-ott]
 name = "SPS OTT"
+
+[sps-room]
+name = "SPS Room"
+
+[sps-delay]
+name = "SPS Delay"
+
+[sps-echo]
+name = "SPS Echo"

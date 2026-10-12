@@ -1,5 +1,9 @@
 use nih_plug_xtask::Result;
+mod delay;
+mod echo;
 mod ott;
+mod room;
+mod time_metadata;
 use ott::metadata;
 use std::{
     env, fs,
@@ -14,13 +18,36 @@ struct Plugin {
     metadata: fn(&Path) -> std::io::Result<()>,
 }
 
-const PLUGINS: &[Plugin] = &[Plugin {
-    package: "sps-ott",
-    lv2_package: "sps-ott-lv2",
-    name: "SPS OTT",
-    metadata_directory: "plugins/sps-ott/metadata",
-    metadata,
-}];
+const PLUGINS: &[Plugin] = &[
+    Plugin {
+        package: "sps-ott",
+        lv2_package: "sps-ott-lv2",
+        name: "SPS OTT",
+        metadata_directory: "plugins/sps-ott/metadata",
+        metadata,
+    },
+    Plugin {
+        package: "sps-room",
+        lv2_package: "sps-room-lv2",
+        name: "SPS Room",
+        metadata_directory: "plugins/sps-room/metadata",
+        metadata: room::metadata,
+    },
+    Plugin {
+        package: "sps-delay",
+        lv2_package: "sps-delay-lv2",
+        name: "SPS Delay",
+        metadata_directory: "plugins/sps-delay/metadata",
+        metadata: delay::metadata,
+    },
+    Plugin {
+        package: "sps-echo",
+        lv2_package: "sps-echo-lv2",
+        name: "SPS Echo",
+        metadata_directory: "plugins/sps-echo/metadata",
+        metadata: echo::metadata,
+    },
+];
 
 fn main() -> Result<()> {
     nih_plug_xtask::chdir_workspace_root()?;

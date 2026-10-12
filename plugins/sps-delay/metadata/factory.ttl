@@ -1,0 +1,53 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix time: <http://lv2plug.in/ns/ext/time#> .
+@prefix urid: <http://lv2plug.in/ns/ext/urid#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui: <http://lv2plug.in/ns/extensions/ui#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<https://sephonix.com/plugins/sps-delay#factory> a pset:Preset ; lv2:appliesTo <https://sephonix.com/plugins/sps-delay> ;
+    rdfs:label "SPS Delay — Default" ;
+    lv2:port
+    [ lv2:symbol "mix" ; pset:value 35 ],
+    [ lv2:symbol "output" ; pset:value 0 ],
+    [ lv2:symbol "bypass" ; pset:value 0 ],
+    [ lv2:symbol "mode" ; pset:value 0 ],
+    [ lv2:symbol "style" ; pset:value 0 ],
+    [ lv2:symbol "era" ; pset:value 1 ],
+    [ lv2:symbol "time_l" ; pset:value 350 ],
+    [ lv2:symbol "time_r" ; pset:value 500 ],
+    [ lv2:symbol "sync_l" ; pset:value 0 ],
+    [ lv2:symbol "sync_r" ; pset:value 0 ],
+    [ lv2:symbol "division_l" ; pset:value 4 ],
+    [ lv2:symbol "division_r" ; pset:value 4 ],
+    [ lv2:symbol "spread" ; pset:value 0 ],
+    [ lv2:symbol "ratio" ; pset:value 61.8 ],
+    [ lv2:symbol "feedback" ; pset:value 40 ],
+    [ lv2:symbol "width" ; pset:value 100 ],
+    [ lv2:symbol "drive" ; pset:value 0 ],
+    [ lv2:symbol "age" ; pset:value 10 ],
+    [ lv2:symbol "diffusion" ; pset:value 0 ],
+    [ lv2:symbol "diff_size" ; pset:value 30 ],
+    [ lv2:symbol "mod_rate" ; pset:value 0.5 ],
+    [ lv2:symbol "mod_depth" ; pset:value 0 ],
+    [ lv2:symbol "wow" ; pset:value 10 ],
+    [ lv2:symbol "flutter" ; pset:value 5 ],
+    [ lv2:symbol "shift" ; pset:value 0 ],
+    [ lv2:symbol "freq_detune" ; pset:value 0 ],
+    [ lv2:symbol "pitch" ; pset:value 0 ],
+    [ lv2:symbol "detune" ; pset:value 0 ],
+    [ lv2:symbol "pitch_mix" ; pset:value 100 ],
+    [ lv2:symbol "low_cut" ; pset:value 20 ],
+    [ lv2:symbol "high_cut" ; pset:value 16000 ],
+    [ lv2:symbol "duck" ; pset:value 50 ],
+    [ lv2:symbol "spacing" ; pset:value 0 ],
+    [ lv2:symbol "tap_a" ; pset:value 1 ],
+    [ lv2:symbol "tap_b" ; pset:value 1 ],
+    [ lv2:symbol "tap_c" ; pset:value 1 ],
+    [ lv2:symbol "tap_d" ; pset:value 1 ],
+    [ lv2:symbol "swell" ; pset:value 0 ] .

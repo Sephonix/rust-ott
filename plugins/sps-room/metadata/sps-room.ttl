@@ -1,0 +1,58 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix time: <http://lv2plug.in/ns/ext/time#> .
+@prefix urid: <http://lv2plug.in/ns/ext/urid#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui: <http://lv2plug.in/ns/extensions/ui#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<https://sephonix.com/plugins/sps-room> a lv2:Plugin, lv2:ReverbPlugin, doap:Project ;
+    doap:name "SPS Room" ;
+    doap:license <https://www.gnu.org/licenses/gpl-3.0.html> ;
+    doap:maintainer [ foaf:name "Sephonix" ; foaf:homepage <https://github.com/Sephonix/sps-dsp> ] ;
+    lv2:minorVersion 0 ; lv2:microVersion 1 ;
+    lv2:optionalFeature lv2:hardRTCapable, urid:map ;
+    ui:ui <https://sephonix.com/plugins/sps-room#ui> ;
+    lv2:port
+    [ a lv2:AudioPort, lv2:InputPort ; lv2:index 0 ; lv2:symbol "in_l" ; lv2:name "Input Left" ],
+    [ a lv2:AudioPort, lv2:InputPort ; lv2:index 1 ; lv2:symbol "in_r" ; lv2:name "Input Right" ],
+    [ a lv2:AudioPort, lv2:OutputPort ; lv2:index 2 ; lv2:symbol "out_l" ; lv2:name "Output Left" ],
+    [ a lv2:AudioPort, lv2:OutputPort ; lv2:index 3 ; lv2:symbol "out_r" ; lv2:name "Output Right" ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 4 ; lv2:symbol "mix" ; lv2:name "Mix" ; lv2:default 35 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 5 ; lv2:symbol "output" ; lv2:name "Output" ; lv2:default 0 ; lv2:minimum -24 ; lv2:maximum 24 ; lv2:portProperty lv2:connectionOptional ; units:unit units:db ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 6 ; lv2:symbol "bypass" ; lv2:name "Bypass" ; lv2:default 0 ; lv2:minimum 0 ; lv2:maximum 1 ; lv2:portProperty lv2:connectionOptional ; lv2:portProperty lv2:integer, lv2:toggled ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 7 ; lv2:symbol "mode" ; lv2:name "Character" ; lv2:default 0 ; lv2:minimum 0 ; lv2:maximum 11 ; lv2:portProperty lv2:connectionOptional ; lv2:portProperty lv2:integer, lv2:enumeration ; lv2:scalePoint [ rdfs:label "Large Room" ; rdf:value 0 ], [ rdfs:label "Medium Room" ; rdf:value 1 ], [ rdfs:label "Bright Hall" ; rdf:value 2 ], [ rdfs:label "Chamber" ; rdf:value 3 ], [ rdfs:label "Dark Room" ; rdf:value 4 ], [ rdfs:label "Dark Chamber" ; rdf:value 5 ], [ rdfs:label "Dark Space" ; rdf:value 6 ], [ rdfs:label "Vast Space" ; rdf:value 7 ], [ rdfs:label "Small Space" ; rdf:value 8 ], [ rdfs:label "Centered Space" ; rdf:value 9 ], [ rdfs:label "Deep Space" ; rdf:value 10 ], [ rdfs:label "Dense Room" ; rdf:value 11 ] ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 8 ; lv2:symbol "predelay" ; lv2:name "Predelay" ; lv2:default 15 ; lv2:minimum 0 ; lv2:maximum 500 ; lv2:portProperty lv2:connectionOptional ; units:unit units:ms ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 9 ; lv2:symbol "decay" ; lv2:name "Decay" ; lv2:default 2 ; lv2:minimum 0.1 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 10 ; lv2:symbol "high_cut" ; lv2:name "High Cut" ; lv2:default 12000 ; lv2:minimum 200 ; lv2:maximum 20000 ; lv2:portProperty lv2:connectionOptional ; units:unit units:hz ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 11 ; lv2:symbol "low_cut" ; lv2:name "Low Cut" ; lv2:default 0 ; lv2:minimum 0 ; lv2:maximum 2000 ; lv2:portProperty lv2:connectionOptional ; units:unit units:hz ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 12 ; lv2:symbol "depth" ; lv2:name "Late Blend" ; lv2:default 70 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 13 ; lv2:symbol "early_size" ; lv2:name "Early Size" ; lv2:default 45 ; lv2:minimum 1 ; lv2:maximum 1000 ; lv2:portProperty lv2:connectionOptional ; units:unit units:ms ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 14 ; lv2:symbol "early_cross" ; lv2:name "Early Cross" ; lv2:default 30 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 15 ; lv2:symbol "early_rate" ; lv2:name "Early Mod Rate" ; lv2:default 0.4 ; lv2:minimum 0.01 ; lv2:maximum 10 ; lv2:portProperty lv2:connectionOptional ; units:unit units:hz ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 16 ; lv2:symbol "early_mod" ; lv2:name "Early Mod Depth" ; lv2:default 10 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 17 ; lv2:symbol "early_send" ; lv2:name "Early Send" ; lv2:default 60 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 18 ; lv2:symbol "diffusion" ; lv2:name "Early Diffusion" ; lv2:default 85 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 19 ; lv2:symbol "space" ; lv2:name "Space" ; lv2:default 0 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 20 ; lv2:symbol "late_size" ; lv2:name "Late Size" ; lv2:default 50 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 21 ; lv2:symbol "late_cross" ; lv2:name "Late Cross" ; lv2:default 60 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 22 ; lv2:symbol "late_rate" ; lv2:name "Late Mod Rate" ; lv2:default 0.5 ; lv2:minimum 0.01 ; lv2:maximum 10 ; lv2:portProperty lv2:connectionOptional ; units:unit units:hz ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 23 ; lv2:symbol "late_mod" ; lv2:name "Late Mod Depth" ; lv2:default 15 ; lv2:minimum 0 ; lv2:maximum 100 ; lv2:portProperty lv2:connectionOptional ; units:unit units:pc ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 24 ; lv2:symbol "bass_mult" ; lv2:name "Bass Decay" ; lv2:default 1.2 ; lv2:minimum 0.25 ; lv2:maximum 4 ; lv2:portProperty lv2:connectionOptional ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 25 ; lv2:symbol "bass_xover" ; lv2:name "Bass Crossover" ; lv2:default 600 ; lv2:minimum 20 ; lv2:maximum 4000 ; lv2:portProperty lv2:connectionOptional ; units:unit units:hz ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 26 ; lv2:symbol "high_mult" ; lv2:name "High Decay" ; lv2:default 0.5 ; lv2:minimum 0.1 ; lv2:maximum 2 ; lv2:portProperty lv2:connectionOptional ],
+    [ a lv2:ControlPort, lv2:InputPort ; lv2:index 27 ; lv2:symbol "high_xover" ; lv2:name "High Crossover" ; lv2:default 6000 ; lv2:minimum 500 ; lv2:maximum 20000 ; lv2:portProperty lv2:connectionOptional ; units:unit units:hz ],
+    [ a lv2:ControlPort, lv2:OutputPort ; lv2:index 28 ; lv2:symbol "meter_0" ; lv2:name "Input" ; lv2:minimum -120 ; lv2:maximum 60 ; units:unit units:db ; lv2:portProperty lv2:connectionOptional ],
+    [ a lv2:ControlPort, lv2:OutputPort ; lv2:index 29 ; lv2:symbol "meter_1" ; lv2:name "Output" ; lv2:minimum -120 ; lv2:maximum 60 ; units:unit units:db ; lv2:portProperty lv2:connectionOptional ] .
+
+<https://sephonix.com/plugins/sps-room#ui> a ui:X11UI ; ui:binary <sps_room.so> ;
+    lv2:requiredFeature ui:parent, ui:idleInterface ;
+    lv2:optionalFeature ui:resize ;
+    lv2:extensionData ui:idleInterface ;
+    ui:portNotification
+    [ ui:plugin <https://sephonix.com/plugins/sps-room> ; ui:portIndex 28 ; ui:protocol ui:floatProtocol ],
+    [ ui:plugin <https://sephonix.com/plugins/sps-room> ; ui:portIndex 29 ; ui:protocol ui:floatProtocol ] .

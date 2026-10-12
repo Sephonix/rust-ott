@@ -1796,7 +1796,100 @@ dependencies = [
 ]
 
 [[package]]
+name = "sps-delay"
+version = "0.1.0"
+dependencies = [
+ "nih_plug",
+ "nih_plug_egui",
+ "sps-delay-dsp",
+ "sps-delay-gui",
+]
+
+[[package]]
+name = "sps-delay-dsp"
+version = "0.1.0"
+dependencies = [
+ "sps-dsp",
+]
+
+[[package]]
+name = "sps-delay-gui"
+version = "0.1.0"
+dependencies = [
+ "baseview",
+ "egui-baseview",
+ "nih_plug_egui",
+ "sps-delay-dsp",
+ "sps-gui",
+]
+
+[[package]]
+name = "sps-delay-lv2"
+version = "0.1.0"
+dependencies = [
+ "baseview",
+ "egui-baseview",
+ "raw-window-handle 0.5.2",
+ "sps-delay-dsp",
+ "sps-delay-gui",
+ "sps-lv2",
+]
+
+[[package]]
 name = "sps-dsp"
+version = "0.1.0"
+
+[[package]]
+name = "sps-echo"
+version = "0.1.0"
+dependencies = [
+ "nih_plug",
+ "nih_plug_egui",
+ "sps-echo-dsp",
+ "sps-echo-gui",
+]
+
+[[package]]
+name = "sps-echo-dsp"
+version = "0.1.0"
+dependencies = [
+ "sps-dsp",
+]
+
+[[package]]
+name = "sps-echo-gui"
+version = "0.1.0"
+dependencies = [
+ "baseview",
+ "egui-baseview",
+ "nih_plug_egui",
+ "sps-echo-dsp",
+ "sps-gui",
+]
+
+[[package]]
+name = "sps-echo-lv2"
+version = "0.1.0"
+dependencies = [
+ "baseview",
+ "egui-baseview",
+ "raw-window-handle 0.5.2",
+ "sps-echo-dsp",
+ "sps-echo-gui",
+ "sps-lv2",
+]
+
+[[package]]
+name = "sps-gui"
+version = "0.1.0"
+dependencies = [
+ "nih_plug_egui",
+ "sps-dsp",
+ "sps-presets",
+]
+
+[[package]]
+name = "sps-lv2"
 version = "0.1.0"
 
 [[package]]
@@ -1835,6 +1928,54 @@ dependencies = [
  "raw-window-handle 0.5.2",
  "sps-ott-dsp",
  "sps-ott-gui",
+]
+
+[[package]]
+name = "sps-presets"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sps-dsp",
+]
+
+[[package]]
+name = "sps-room"
+version = "0.1.0"
+dependencies = [
+ "nih_plug",
+ "nih_plug_egui",
+ "sps-room-dsp",
+ "sps-room-gui",
+]
+
+[[package]]
+name = "sps-room-dsp"
+version = "0.1.0"
+dependencies = [
+ "sps-dsp",
+]
+
+[[package]]
+name = "sps-room-gui"
+version = "0.1.0"
+dependencies = [
+ "baseview",
+ "egui-baseview",
+ "nih_plug_egui",
+ "sps-gui",
+ "sps-room-dsp",
+]
+
+[[package]]
+name = "sps-room-lv2"
+version = "0.1.0"
+dependencies = [
+ "baseview",
+ "egui-baseview",
+ "raw-window-handle 0.5.2",
+ "sps-room-dsp",
+ "sps-room-gui",
 ]
 
 [[package]]
@@ -2547,7 +2688,11 @@ name = "xtask"
 version = "0.1.0"
 dependencies = [
  "nih_plug_xtask",
+ "sps-delay-dsp",
+ "sps-dsp",
+ "sps-echo-dsp",
  "sps-ott-dsp",
+ "sps-room-dsp",
 ]
 
 [[package]]

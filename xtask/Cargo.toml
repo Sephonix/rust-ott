@@ -8,3 +8,8 @@ repository.workspace = true
 [dependencies]
 sps-ott-dsp.workspace = true
 nih_plug_xtask = { git = "https://github.com/robbert-vdh/nih-plug.git", rev = "de421011f41a6d10fc8c7a6084e4f4dee0143683" }
+
+sps-dsp.workspace = true
+sps-room-dsp.workspace = true
+sps-delay-dsp.workspace = true
+sps-echo-dsp.workspace = true

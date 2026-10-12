@@ -87,3 +87,9 @@ xvfb-run -a python3 plugins/sps-ott/scripts/smoke_lv2.py --ui --exercise-ui --se
 The GitHub workflow runs Rust checks, all format builds, CLAP validation, LV2
 metadata/audio/UI validation and archive packaging. VST3 SDK validation was
 run locally; it is not currently rebuilt in every CI job.
+
+## Room, Delay and Echo
+
+Fresh time-effect results and reproduction commands are recorded separately in
+[time-effects-validation.md](time-effects-validation.md). The OTT results above
+remain historical except where explicitly rerun in that report.

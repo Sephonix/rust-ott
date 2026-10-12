@@ -9,6 +9,11 @@ The Cargo workspace separates audio processing from plugin APIs and graphics.
 | `sps-ott-gui` (`plugins/sps-ott/gui`) | OTT native egui editor and generated-activity preview, shared by OTT formats. |
 | `sps-ott` (`plugins/sps-ott/plugin`) | NIH-plug CLAP/VST3 export, automation and project state. |
 | `sps-ott-lv2` (`plugins/sps-ott/lv2`) | LV2 core and Linux X11 UI ABI, using the same DSP/editor. |
+| `sps-room-dsp`, `sps-delay-dsp`, `sps-echo-dsp` | Independent effect engines, schemas and factory tuning. |
+| `sps-room/delay/echo-gui`, exported plugin and LV2 crates | Local editor adapters, CLAP/VST3 and LV2 identities/automation. |
+| `sps-presets` | UI-thread JSON preset storage, XDG Documents resolution, validated atomic saves. |
+| `sps-gui` | Shared parameter widgets and preset browsing; receives local schemas/factory callbacks. |
+| `sps-lv2` | Transport atom/URID ABI parsing shared by Delay and Echo; no audio algorithm. |
 | `xtask` | Build, bundle, install and LV2 metadata/preset generation. |
 
 ## Reuse and adding plugins
@@ -128,3 +133,49 @@ Keep DSP free of GUI and host dependencies. Add Windows/macOS CI and exercise
 NIH-plug's platform-specific embedding and packaging before claiming support.
 The LV2 core is portable; the custom editor needs new platform descriptors and
 parent-window handling. No Linux-only calls belong in `sps-dsp` or `sps-ott`.
+
+## Time effects reuse and realtime contract
+
+`sps-dsp::time` supplies delay lines with linear interpolation, allpass diffusers,
+one-pole filters with f64 history, complex oscillators, FIR and low-latency IIR
+analytic frequency shifters, moving-head pitch shifting, tempo subdivisions,
+control smoothing, delay interpolation, input sanitization and wet/dry mixing.
+`meter::MeterBus<N>` publishes independent relaxed floats, and `Levels` owns a
+sample-rate independent peak envelope. These are plugin-independent and have no
+presets, parameter IDs, host or editor dependencies.
+
+Room owns its reflection pattern, stereo network, twelve profiles, decay shelves
+and excitation policy. Delay owns five routing styles, seventeen color profiles,
+feedback safety/companding, modulation, ducking, reverse grains and phaser.
+Echo owns frequency-shifting feedback and opposite stereo shifts. All buffers
+are allocated at initialization; run/parameter update paths do not allocate,
+lock, log, perform I/O or call GUI code. Audio/control values are sanitized;
+filters are bounded below Nyquist. Continuous controls use a 20 ms exponential
+smoother at 32-sample cadence; delay reads interpolate sample by sample between
+cadence updates. Room character and Delay mode/style/era changes fade the wet
+signal over 5 ms, preserving stored history. Bypass eventually takes the exact
+sanitized original input. Format wrappers report an indefinite tail to keep long
+reverbs/feedback audible after hosts stop supplying nonzero audio.
+
+New CLAP IDs are `com.sephonix.sps-room`, `com.sephonix.sps-delay`, and
+`com.sephonix.sps-echo`. VST3 class IDs are the 16 ASCII bytes `SephonixRoom0001`,
+`SephonixDelay001`, and `SephonixEcho0001`. LV2 URIs use
+`https://sephonix.com/plugins/sps-<name>` with `#ui` and `#factory` suffixes.
+Room has 30 ports, Delay 45 and Echo 18. Stereo audio occupies ports 0–3;
+controls follow DSP schema order, then two meter outputs. Delay/Echo add an
+optional atom:Sequence transport input at the end; URIDs are cached during
+instantiate and checked tempo events are applied at their sample timestamps.
+No host callback runs on the audio thread. Without transport the fallback is
+120 BPM. Independent X11 UI value mailboxes use relaxed atomics; dirty bits
+coalesce individual parameter edits and do not synchronize meter snapshots.
+
+Preset files use a versioned plugin ID and stable parameter-ID/value map,
+independent of format. Schema, finite ranges and discrete values are checked
+before applying any controls. Saves use an exclusive temporary file, fsync and
+atomic no-clobber hard-link publication in the same directory. A disk preset is
+control state only. Audio history belongs to the instance and is cleared at
+activation. The CLAP/VST3 host persists controls; LV2 hosts persist control ports.
+Each bundle statically contains all suite code it needs and works without any
+other SPS plugin being installed. Public-manual research stays outside this
+repository; original implementation provenance is recorded in
+[time-effects-design.md](time-effects-design.md).
